@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mtproxy:
+    image: alexbers/mtproxy:latest
+    container_name: mtproxy
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./config:/data
+    environment:
+      - PORT=443              # 默认端口，脚本可修改
+      - SECRET=               # 密钥，脚本会自动填入
+      - TAG=                  # 广告TAG，可选
+      - DOMAIN=www.microsoft.com  # 伪装域名
