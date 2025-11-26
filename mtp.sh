@@ -28,7 +28,7 @@ read -rp "你需要TAG标签吗(Y/N): " chrony_install
         echo -e "正在安装依赖: Docker... "
         echo y | bash <(curl -L -s https://raw.githubusercontent.com/xb0or/nginx-mtproxy/main/docker.sh)
         echo -e "正在安装nginx-mtproxy... "
-        docker run --name nginx-mtproxy -d -e adtag="$tag" -e secret="$secret" -e domain="$domain" -p 80:80 -p $port:$port ellermister/mtproxy:latest
+        docker run --name nginx-mtproxy -d -e tag="$tag" -e secret="$secret" -e domain="$domain" -p 80:80 -p $port:$port ellermister/mtproxy:latest
         ;;
     *)
     #-v /etc/nginx:/etc/nginx 
