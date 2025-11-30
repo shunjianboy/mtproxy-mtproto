@@ -28,7 +28,6 @@ read -rp "你需要TAG标签吗(Y/N): " chrony_install
         echo -e "正在安装依赖: Docker... "
         echo y | bash <(curl -L -s https://raw.githubusercontent.com/xb0or/nginx-mtproxy/main/docker.sh)
         echo -e "正在安装nginx-mtproxy... "
-        # Added -e provider=2 here
         docker run --name nginx-mtproxy -d -e adtag="$tag" -e secret="$secret" -e domain="$domain" -e provider=2 -p 80:80 -p $port:$port ellermister/mtproxy:latest
         ;;
     *)
@@ -37,7 +36,6 @@ echo -e "正在安装依赖: Docker... "
 echo y | bash <(curl -L -s https://cdn.jsdelivr.net/gh/xb0or/nginx-mtproxy@main/docker.sh)
 
 echo -e "正在安装nginx-mtproxy... "
-# Added -e provider=2 here
 docker run --name nginx-mtproxy -d -e secret="$secret" -e domain="$domain" -e provider=2 -p 80:80 -p $port:$port ellermister/mtproxy:latest
         ;;
     esac
@@ -50,7 +48,10 @@ docker update --restart=always nginx-mtproxy
 
     public_ip=$(curl -s http://ipv4.icanhazip.com)
     [ -z "$public_ip" ] && public_ip=$(curl -s ipinfo.io/ip --ipv4)
-    domain_hex=$(xxd -pu <<< $domain | sed 's/0a//g')
+    
+    # Replaced xxd with od for compatibility
+    domain_hex=$(echo -n "$domain" | od -A n -t x1 | tr -d ' \n')
+    
     client_secret="ee${secret}${domain_hex}"
     echo -e "服务器IP：\033[31m$public_ip\033[0m"
     echo -e "服务器端口：\033[31m$port\033[0m"
