@@ -5,29 +5,29 @@
 ### Stop service / 停止服务
 
 ```
-docker stop nginx-mtproxy
+docker stop mtproxy
 ```
 
 ### Start service / 启动服务
 
 ```
-docker start nginx-mtproxy
+docker start mtproxy
 ```
 
 ### Restart service / 重启服务
 
 ```
-docker restart nginx-mtproxy
+docker restart mtproxy
 ```
 
 ### Delete service / 删除服务
 
 ```
-docker rm nginx-mtproxy
+docker rm mtproxy
 ```
 
 ### Auto Run / 开机自启
 
 ```
-docker update --restart=always nginx-mtproxy
+docker update --restart=always mtproxy
 ```
