@@ -1,5 +1,5 @@
 #!/bin/bash                                                                                                  
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin: ~/bin
 
 read -e -p "请输入链接端口(默认443) :" port
 if [[ -z "${port}" ]]; then
@@ -36,19 +36,20 @@ echo -e "正在安装依赖: Docker... "
 echo y | bash <(curl -L -s https://cdn.jsdelivr.net/gh/xb0or/nginx-mtproxy@main/docker.sh)
 
 echo -e "正在安装nginx-mtproxy... "
-docker run --name nginx-mtproxy -d -e secret="$secret" -e domain="$domain" -p 80:80 -p $port:$port ellermister/mtproxy:latest
+docker run --name nginx-mtproxy -d -e secret="$secret" -e domain="$domain" -p 80:80 -p $port:$port ellermister/mtproxy: latest
         ;;
     esac
 
 
 
-echo -e "正在设置开机自启动... "
+echo -e "正在设置开机自启动...  "
 docker update --restart=always nginx-mtproxy
 # echo -e "输入 docker logs nginx-mtproxy 获取链接信息"
 
     public_ip=$(curl -s http://ipv4.icanhazip.com)
     [ -z "$public_ip" ] && public_ip=$(curl -s ipinfo.io/ip --ipv4)
-    domain_hex=$(xxd -pu <<< $domain | sed 's/0a//g')
+    # 修复：使用 printf 而不是 <<< 来避免换行符问题
+    domain_hex=$(printf "%s" "$domain" | xxd -pu)
     client_secret="ee${secret}${domain_hex}"
     echo -e "服务器IP：\033[31m$public_ip\033[0m"
     echo -e "服务器端口：\033[31m$port\033[0m"
