@@ -41,7 +41,7 @@ cat > $INSTALL_DIR/index.html << 'EOF'
 <!DOCTYPE html>
 <html>
 <head>
-    <title>重启 VPS</title>
+    <title>重启 网络</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -157,7 +157,7 @@ class RestartHandler(BaseHTTPRequestHandler):
                 self. send_response(200)
                 self.send_header('Content-type', 'text/plain; charset=utf-8')
                 self.end_headers()
-                self.wfile.write('重启命令已成功发送！服务器即将重启... '.encode('utf-8'))
+                self.wfile.write('重启命令已成功发送！网络即将重启... '.encode('utf-8'))
             except Exception as e:
                 self.send_response(500)
                 self.send_header('Content-type', 'text/plain; charset=utf-8')
