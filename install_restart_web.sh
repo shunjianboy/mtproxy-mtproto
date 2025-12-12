@@ -101,15 +101,15 @@ cat > $INSTALL_DIR/index.html << 'EOF'
 </head>
 <body>
     <div class="container">
-        <h1>🔄 重启 VPS</h1>
-        <p>点击下面的按钮来重启此 VPS 服务器</p>
+        <h1>🔄 重启网络</h1>
+        <p>点击下面的按钮来重启网络</p>
         <button onclick="restart()">立即重启</button>
         <p id="status"></p>
     </div>
     
     <script>
         function restart() {
-            if(confirm('确定要重启 VPS 吗？\n\n服务器将会立即重启，所有连接将会断开。')) {
+            if(confirm('确定要重启网络吗？\n\n将会立即重启，所有连接将会断开，10秒后即可修复')) {
                 const statusEl = document.getElementById('status');
                 statusEl.innerText = '正在发送重启命令...';
                 statusEl.className = '';
